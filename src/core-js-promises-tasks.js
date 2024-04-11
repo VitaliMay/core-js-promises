@@ -117,21 +117,6 @@ function getAllOrNothing(promises) {
  * [Promise.resolve(1), Promise.reject(2), Promise.resolve(3)]  => Promise fulfilled with [1, null, 3]
  */
 
-// function getAllResult(promises) {
-//   return new Promise((resolve) => {
-//     const result = [];
-//     Promise.allSettled(promises).then((data) => {
-//       data.forEach((item) => {
-//         if (item.status === 'fulfilled') {
-//           result.push(item.value);
-//         } else {
-//           result.push(null);
-//         }
-//       });
-//       resolve(result);
-//     });
-//   });
-// }
 function getAllResult(promises) {
   return new Promise((resolve) => {
     const result = [];
@@ -166,9 +151,25 @@ function getAllResult(promises) {
  * [promise1, promise4, promise3] => Promise.resolved('104030')
  * [promise1, promise4, promise3, promise2] => Promise.resolved('10403020')
  */
-function queuPromises(/* promises */) {
-  throw new Error('Not implemented');
+
+function queuPromises(promises) {
+  const result = [];
+  let chain = Promise.resolve();
+
+  promises.forEach((item) => {
+    chain = chain
+      .then(() => item)
+      .then((value) => {
+        result.push(value);
+      });
+  });
+
+  return chain.then(() => result.join(''));
 }
+
+// function queuPromises(/* promises */) {
+//   throw new Error('Not implemented');
+// }
 
 module.exports = {
   getPromise,
