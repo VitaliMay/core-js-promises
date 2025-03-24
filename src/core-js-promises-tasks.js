@@ -152,7 +152,8 @@ function getAllResult(promises) {
  * [promise1, promise4, promise3, promise2] => Promise.resolved('10403020')
  */
 
-function queuPromises(promises) {
+// function queuPromises(promises) {
+function queuePromises(promises) {
   const result = [];
   let chain = Promise.resolve();
 
@@ -178,5 +179,14 @@ module.exports = {
   getFirstPromiseResult,
   getAllOrNothing,
   getAllResult,
-  queuPromises,
+  queuePromises,
 };
+// module.exports = {
+//   getPromise,
+//   getPromiseResult,
+//   getFirstResolvedPromiseResult,
+//   getFirstPromiseResult,
+//   getAllOrNothing,
+//   getAllResult,
+//   queuPromises,
+// };
